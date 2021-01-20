@@ -44,9 +44,26 @@ def process_bmi_form():
     print(request.form)
     weight = float(request.form.get('weight'))
     height = float(request.form.get('height'))
-    bmi = weight / height**2
+    bmi = round(weight / height**2, 2)
     return render_template('bmi_results.template.html', bmi=bmi)
 
+
+@app.route('/survey')
+def show_survey_form():
+    return render_template('survey.template.html')
+
+@app.route('/survey', methods=["POST"])
+def process_survey_form():
+    print(request.form)
+    fullname = request.form.get('fullname')
+    gender = request.form.get('gender')
+    activities = request.form.getlist('activities')
+    # check if the user has selected any activities
+    if not activities:
+        print("The user didn't select any activities")
+    print(activities)
+    return render_template('survey_results.template.html', fullname=fullname,
+                           gender=gender, activities=activities)
 
 # "magic code" -- boilerplate
 if __name__ == '__main__':
