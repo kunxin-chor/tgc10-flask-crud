@@ -10,6 +10,8 @@ def show_login_form():
 
 # if you recieve a POST request for the '/login' url
 # use the function below
+
+
 @app.route('/login', methods=["POST"])
 def process_login_form():
     print(request.form)
@@ -30,6 +32,21 @@ def process_calculator_form():
     n1 = int(request.form.get('number1'))
     n2 = int(request.form.get('number2'))
     return str(n1 + n2)
+
+
+@app.route('/bmi')
+def show_bmi_form():
+    return render_template('bmi.template.html')
+
+
+@app.route('/bmi', methods=["POST"])
+def process_bmi_form():
+    print(request.form)
+    weight = float(request.form.get('weight'))
+    height = float(request.form.get('height'))
+    bmi = weight / height**2
+    return render_template('bmi_results.template.html', bmi=bmi)
+
 
 # "magic code" -- boilerplate
 if __name__ == '__main__':
