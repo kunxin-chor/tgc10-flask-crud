@@ -18,6 +18,19 @@ def process_login_form():
     print("data recieved")
     return "Welcome, " + username
 
+
+@app.route('/calculate')
+def show_calculator_form():
+    return render_template('calculator.template.html')
+
+
+@app.route('/calculate', methods=["POST"])
+def process_calculator_form():
+    print(request.form)
+    n1 = int(request.form.get('number1'))
+    n2 = int(request.form.get('number2'))
+    return str(n1 + n2)
+
 # "magic code" -- boilerplate
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
